@@ -26,53 +26,22 @@
       radial-gradient(ellipse 80% 40% at 50% 100%, rgba(16,185,129,.03) 0%, transparent 60%);
   }
 
-  .page { display: grid; grid-template-columns: 1fr minmax(auto,760px) 1fr; min-height: 100vh; }
-
-  /* ====== Sides ====== */
-  .side { position: relative; pointer-events: none; z-index: 0; }
-  .side-inner { position: sticky; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 24px 0; }
-  .side-l .side-inner { align-items: flex-end; padding-right: max(16px, calc((100% - 760px) / 2 - 88px)); }
-  .side-r .side-inner { align-items: flex-start; padding-left: max(16px, calc((100% - 760px) / 2 - 88px)); }
-
-  .s-card {
-    width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
-    font-size: 1.35em; flex-shrink: 0; position: relative; backdrop-filter: blur(8px);
-  }
-  .s-card::after { content: ''; position: absolute; inset: -2px; border-radius: 16px; opacity: 0; transition: opacity .4s; z-index: -1; }
-  .s-card.c1 { background: rgba(59,130,246,.12); border: 1px solid rgba(59,130,246,.22); color: var(--blue-bright); }
-  .s-card.c1::after { background: rgba(59,130,246,.08); }
-  .s-card.c2 { background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.22); color: var(--gold-bright); }
-  .s-card.c2::after { background: rgba(245,158,11,.08); }
-  .s-card.c3 { background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.22); color: var(--green-bright); }
-  .s-card.c3::after { background: rgba(16,185,129,.08); }
-  .s-card.c4 { background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.22); color: var(--purple-bright); }
-  .s-card.c4::after { background: rgba(139,92,246,.08); }
-
-  .s-tag { padding: 4px 12px; border-radius: 14px; font-size: .7em; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; }
-  .s-tag.t1 { background: rgba(59,130,246,.18); color: #93bbfd; border: 1px solid rgba(59,130,246,.25); }
-  .s-tag.t2 { background: rgba(16,185,129,.18); color: #6ee7b7; border: 1px solid rgba(16,185,129,.25); }
-  .s-tag.t3 { background: rgba(245,158,11,.18); color: #fcd34d; border: 1px solid rgba(245,158,11,.25); }
-  .s-tag.t4 { background: rgba(139,92,246,.18); color: #c4b5fd; border: 1px solid rgba(139,92,246,.25); }
-
-  .s-line { width: 2px; height: 18px; border-radius: 1px; background: linear-gradient(to bottom, transparent, rgba(148,163,184,.15), transparent); }
-
-  /* ====== Content ====== */
-  .content { padding-bottom: 60px; min-width: 0; }
-
   .topbar {
-    background: #020617; border-bottom: 1px solid rgba(255,255,255,.04); padding: 12px 24px;
+    background: #020617; border-bottom: 1px solid rgba(255,255,255,.04); padding: 12px 20px;
     display: flex; align-items: center; justify-content: center; gap: 10px; font-size: .84em; color: var(--gray2);
-    grid-column: 1/-1; letter-spacing: .3px;
+    letter-spacing: .3px;
   }
   .topbar .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 8px rgba(16,185,129,.4); }
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.85)} }
   .topbar span { color: var(--white); font-weight: 500; }
 
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 60px; }
+
   /* Hero */
-  .hero { text-align: center; padding: 64px 24px 40px; }
+  .hero { text-align: center; padding: 64px 0 40px; }
   .hero .badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 18px; border-radius: 24px; font-size: .8em; background: rgba(59,130,246,.1); color: var(--blue-bright); border: 1px solid rgba(59,130,246,.2); margin-bottom: 24px; letter-spacing: .5px; }
   .hero .badge::before { content: '🔓'; font-size: .9em; }
-  .hero h1 { font-size: 2.8em; font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin-bottom: 12px; }
+  .hero h1 { font-size: 2.6em; font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin-bottom: 12px; }
   .hero h1 .w { color: var(--white); }
   .hero h1 .hl { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 40%, #fcd34d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .hero .sub { font-size: 1.05em; color: var(--gray); font-weight: 400; }
@@ -80,24 +49,19 @@
 
   /* Section heading */
   .sec-hd { display: flex; align-items: center; gap: 12px; margin: 44px 0 18px; }
-  .sec-hd .n { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .88em; flex-shrink: 0; position: relative; }
-  .sec-hd .n::after { content: ''; position: absolute; inset: -3px; border-radius: 13px; opacity: .3; z-index: -1; }
+  .sec-hd .n { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .88em; flex-shrink: 0; }
   .sec-hd .n.n1 { background: linear-gradient(135deg, #2563eb, #3b82f6); box-shadow: 0 4px 14px rgba(59,130,246,.3); }
-  .sec-hd .n.n1::after { background: rgba(59,130,246,.2); }
   .sec-hd .n.n2 { background: linear-gradient(135deg, #d97706, #f59e0b); box-shadow: 0 4px 14px rgba(245,158,11,.3); }
-  .sec-hd .n.n2::after { background: rgba(245,158,11,.2); }
   .sec-hd .n.n3 { background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 4px 14px rgba(16,185,129,.3); }
-  .sec-hd .n.n3::after { background: rgba(16,185,129,.2); }
   .sec-hd .n.n4 { background: linear-gradient(135deg, #7c3aed, #8b5cf6); box-shadow: 0 4px 14px rgba(139,92,246,.3); }
-  .sec-hd .n.n4::after { background: rgba(139,92,246,.2); }
+  .sec-hd .n.nx { background: linear-gradient(135deg, #dc2626, #ef4444); box-shadow: 0 4px 14px rgba(239,68,68,.3); }
   .sec-hd h2 { font-size: 1.35em; font-weight: 700; letter-spacing: -.2px; }
 
   /* Cards */
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; margin: 10px 0; }
-  .card-accent { border-left: 3px solid var(--blue); }
 
   .dl-btn {
-    display: flex; align-items: center; gap: 12px; width: 100%; padding: 18px 22px; border-radius: 14px;
+    display: flex; align-items: center; gap: 12px; width: 100%; padding: 16px 20px; border-radius: 14px;
     text-decoration: none; font-weight: 600; font-size: .95em; transition: all .25s;
     border: 1px solid var(--border-light); background: var(--card2); color: var(--white);
   }
@@ -112,9 +76,8 @@
   .step { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin: 6px 0; transition: border-color .2s; }
   .step:hover { border-color: var(--border-light); }
   .step-hd { padding: 13px 18px; display: flex; align-items: center; gap: 12px; background: var(--card2); font-size: .92em; border-bottom: 1px solid rgba(255,255,255,.03); }
-  .step-hd .sn { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .78em; flex-shrink: 0; }
+  .step-hd .sn { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .78em; flex-shrink: 0; color: #fff; }
   .step-bd { padding: 16px 20px; font-size: .92em; line-height: 1.75; }
-  .step-bd p { color: var(--gray); margin-bottom: 4px; }
 
   /* Table */
   .cfg { width: 100%; border-collapse: collapse; margin: 6px 0; }
@@ -123,8 +86,8 @@
   .cfg td:last-child { color: var(--white); font-family: "SF Mono","Fira Code","Cascadia Code",monospace; font-size: .87em; }
   .cfg tr:last-child td { border: none; }
 
-  .key-box { background: #060b14; border: 1px solid #233050; border-radius: 10px; padding: 12px 18px; font-family: "SF Mono","Fira Code",monospace; color: var(--green-bright); font-size: .87em; margin: 8px 0; word-break: break-all; display: flex; align-items: center; gap: 10px; }
-  .key-box::before { content: '🔑'; flex-shrink: 0; font-size: 1.1em; }
+  .key-box { background: #060b14; border: 1px solid #233050; border-radius: 10px; padding: 12px 18px; font-family: "SF Mono","Fira Code",monospace; color: var(--green-bright); font-size: .87em; margin: 8px 0; word-break: break-all; }
+  .key-box::before { content: '🔑 '; }
 
   /* Notes */
   .note { padding: 13px 18px; border-radius: 10px; margin: 10px 0; font-size: .9em; display: flex; align-items: flex-start; gap: 10px; line-height: 1.6; }
@@ -144,120 +107,102 @@
   .tr-item h4 { font-size: .93em; margin-bottom: 3px; }
   .tr-item p { color: var(--gray2); font-size: .85em; }
 
-  .footer { grid-column: 1/-1; text-align: center; padding: 36px 24px; color: var(--gray2); font-size: .82em; border-top: 1px solid rgba(255,255,255,.04); }
+  /* Side decorations - simple badge row */
+  .deco-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 24px 0 32px; opacity: .8; }
+  .deco-item { display: flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: .78em; font-weight: 600; }
+  .deco-item.d1 { background: rgba(59,130,246,.12); color: #93bbfd; border: 1px solid rgba(59,130,246,.22); }
+  .deco-item.d2 { background: rgba(16,185,129,.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,.22); }
+  .deco-item.d3 { background: rgba(245,158,11,.12); color: #fcd34d; border: 1px solid rgba(245,158,11,.22); }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .step, .card, .note { animation: fadeUp .5s ease backwards; }
-  .step:nth-child(2) { animation-delay: .03s; }
-  .step:nth-child(3) { animation-delay: .06s; }
-  .step:nth-child(4) { animation-delay: .09s; }
-  .step:nth-child(5) { animation-delay: .12s; }
-  .step:nth-child(6) { animation-delay: .15s; }
+  .footer { text-align: center; padding: 36px 20px; color: var(--gray2); font-size: .82em; border-top: 1px solid rgba(255,255,255,.04); margin-top: 20px; }
 
-  @media (max-width: 900px) {
-    .page { grid-template-columns: 1fr; }
-    .side { display: none; }
-    .hero h1 { font-size: 1.9em; }
-    .hero { padding: 44px 20px 32px; }
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.7em; }
+    .wrap { padding: 0 16px 40px; }
   }
 </style>
 </head>
 <body>
 
-<div class="page">
+<div class="topbar">
+  <div class="dot"></div>
+  系统状态正常 <span>· 20分钟搞定 · 全程国内网</span>
+</div>
 
-  <!-- ===== Left Side ===== -->
-  <div class="side side-l">
-    <div class="side-inner">
-      <div class="s-card c1">💻</div><div class="s-tag t1">VS Code</div><div class="s-line"></div>
-      <div class="s-card c2">🔀</div><div class="s-tag t2">CC Switch</div><div class="s-line"></div>
-      <div class="s-card c3">🧠</div><div class="s-tag t3">DeepSeek</div><div class="s-line"></div>
-      <div class="s-card c4">✨</div><div class="s-tag t4">AI 编程</div>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="badge">无需翻墙 · 无需信用卡 · 无需 Anthropic 账号</div>
+    <h1><span class="w">Claude Code</span> <span class="hl">+ DeepSeek V4 Pro</span></h1>
+    <p class="sub">一条龙安装教程 · 装好就能用 AI 写代码</p>
+    <p class="author">蚊子 · 小d</p>
+  </div>
+
+  <div class="deco-row">
+    <div class="deco-item d1">💻 VS Code</div>
+    <div class="deco-item d2">🔀 CC Switch</div>
+    <div class="deco-item d3">🧠 DeepSeek</div>
+    <div class="deco-item d1">✨ AI 编程</div>
+    <div class="deco-item d2">🎯 免费</div>
+    <div class="deco-item d3">🚀 3分钟搞定</div>
+  </div>
+
+  <!-- 1 -->
+  <div class="sec-hd"><div class="n n1">1</div><h2>安装 VS Code</h2></div>
+  <div class="card"><a href="https://code.visualstudio.com" target="_blank" class="dl-btn"><span class="ic">💻</span><span class="tx">VS Code 官网下载<small>code.visualstudio.com · 免费开源</small></span><span class="ar">→</span></a></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">1</div> 双击安装包，一路下一步</div></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">2</div> 打开 VS Code，按 Ctrl+Shift+X 打开扩展商店</div></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">3</div> 搜索 <strong style="color:#60a5fa;">Claude Code</strong>，安装 Anthropic 官方插件</div></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">4</div> Ctrl+, 打开设置 → 搜索 <code style="color:#34d399;background:rgba(16,185,129,.1);padding:2px 8px;border-radius:4px;">claudeCode.disableLoginPrompt</code> → 勾选</div></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">5</div> <strong style="color:#ef4444;">关掉 VS Code</strong>，等配好 CC Switch 再打开</div></div>
+
+  <!-- 2 -->
+  <div class="sec-hd"><div class="n n2">2</div><h2>安装 CC Switch</h2></div>
+  <div class="card"><a href="https://github.com/farion1231/cc-switch/releases" target="_blank" class="dl-btn"><span class="ic">🔀</span><span class="tx">CC Switch 下载<small>GitHub · 免费开源工具</small></span><span class="ar">→</span></a></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--gold);">1</div> 双击安装包，一路下一步</div></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--gold);">2</div> 打开 CC Switch，它会在右下角系统托盘常驻</div></div>
+  <div class="note note-warn">CC Switch 安装后<strong>必须一直开着</strong>！右下角能看到图标就对了。关了就连不上大模型。</div>
+
+  <!-- 3 -->
+  <div class="sec-hd"><div class="n n3">3</div><h2>部署大模型</h2></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--green);">1</div> 浏览器打开 <strong style="color:#34d399;">platform.deepseek.com</strong>，注册登录</div></div>
+  <div class="step">
+    <div class="step-hd"><div class="sn" style="background:var(--green);">2</div> 左侧菜单 → API Keys → 创建 → 复制 Key</div>
+    <div class="step-bd"><div class="key-box">sk-xxxxxxxxxxxxxxxxxxxxxxxx（只显示一次，马上复制保存）</div></div>
+  </div>
+  <div class="step">
+    <div class="step-hd"><div class="sn" style="background:var(--green);">3</div> 打开 CC Switch → 点右上角 ＋ 新建配置</div>
+    <div class="step-bd">
+      <table class="cfg">
+        <tr><td>供应商名称</td><td>DeepSeek</td></tr>
+        <tr><td>API Key</td><td>sk-xxxxxxxx（刚才复制的）</td></tr>
+        <tr><td>请求地址</td><td>https://api.deepseek.com/anthropic</td></tr>
+        <tr><td>最大强度思考</td><td>开启 ✅</td></tr>
+      </table>
+      <div class="note note-info">其他字段不用管。请求地址末尾不要加斜杠。</div>
+    </div>
+  </div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--green);">4</div> 保存 → 回到主界面 → 点开关变<strong style="color:#34d399;">绿</strong></div></div>
+  <div class="note note-ok">DeepSeek 新用户<strong>送免费额度</strong>，够用很久，用完了按量付费很便宜。</div>
+
+  <!-- 4 -->
+  <div class="sec-hd"><div class="n n4">4</div><h2>打开 Claude Code 开始用</h2></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--purple);">1</div> 打开 VS Code（确保 CC Switch 在系统托盘开着）</div></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--purple);">2</div> 左侧栏点 AI 图标，打开 Claude Code 面板</div></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--purple);">3</div> 输入 <code style="color:#c4b5fd;background:rgba(139,92,246,.12);padding:2px 8px;border-radius:4px;">/model</code>，看到 <strong style="color:#34d399;">deepseek-v4-pro</strong></div></div>
+  <div class="step"><div class="step-hd"><div class="sn" style="background:var(--purple);">4</div> 输入 "你好" → AI 回复你了 → <strong style="color:#fbbf24;">大功告成！</strong></div></div>
+  <div class="note note-ok" style="font-size:.95em;padding:16px;"><strong>🎉 安装成功！现在可以让 AI 帮你写代码了。</strong></div>
+
+  <!-- Troubleshooting -->
+  <div class="sec-hd" style="margin-top:44px;"><div class="n nx">!</div><h2>连不上？查这三样</h2></div>
+  <div class="card">
+    <div class="trouble">
+      <div class="tr-item"><div class="tr-num">1</div><div><h4>CC Switch 开着吗？</h4><p>右下角系统托盘找图标，确认开关是绿的</p></div></div>
+      <div class="tr-item"><div class="tr-num">2</div><div><h4>API Key 填对了没？</h4><p>别多空格，去 DeepSeek 后台重新复制试试</p></div></div>
+      <div class="tr-item"><div class="tr-num">3</div><div><h4>VS Code 设置勾了吗？</h4><p>搜索 claudeCode.disableLoginPrompt，确保已勾选</p></div></div>
     </div>
   </div>
 
-  <!-- ===== Main ===== -->
-  <div class="content">
-
-    <div class="hero">
-      <div class="badge">无需翻墙 · 无需信用卡 · 无需 Anthropic 账号</div>
-      <h1><span class="w">Claude Code</span> <span class="hl">+ DeepSeek V4 Pro</span></h1>
-      <p class="sub">一条龙安装教程 · 装好就能用 AI 写代码</p>
-      <p class="author">蚊子 · 小d</p>
-    </div>
-
-    <!-- ====== 1. VS Code ====== -->
-    <div class="sec-hd"><div class="n n1">1</div><h2>安装 VS Code</h2></div>
-    <div class="card"><a href="https://code.visualstudio.com" target="_blank" class="dl-btn"><span class="ic">💻</span><span class="tx">VS Code 官网下载<small>code.visualstudio.com · 免费</small></span><span class="ar">→</span></a></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">1</div> 双击安装包，一路下一步</div></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">2</div> 打开 VS Code，按 Ctrl+Shift+X 打开扩展商店</div></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">3</div> 搜索 <strong style="color:#60a5fa;">Claude Code</strong>，安装 Anthropic 官方插件</div></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">4</div> Ctrl+, 打开设置 → 搜索 <code style="color:#34d399;background:rgba(16,185,129,.1);padding:2px 8px;border-radius:4px;">claudeCode.disableLoginPrompt</code> → 勾选</div></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--blue);">5</div> <strong style="color:#ef4444;">关掉 VS Code</strong>，等配好 CC Switch 再打开</div></div>
-
-    <!-- ====== 2. CC Switch ====== -->
-    <div class="sec-hd"><div class="n n2">2</div><h2>安装 CC Switch</h2></div>
-    <div class="card"><a href="https://github.com/farion1231/cc-switch/releases" target="_blank" class="dl-btn"><span class="ic">🔀</span><span class="tx">CC Switch 下载<small>GitHub · 免费开源</small></span><span class="ar">→</span></a></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--gold);">1</div> 双击安装包，一路下一步</div></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--gold);">2</div> 打开 CC Switch，它会在右下角系统托盘常驻</div></div>
-    <div class="note note-warn">CC Switch 安装后<strong>必须一直开着</strong>！右下角能看到图标就对了。关了就连不上大模型。</div>
-
-    <!-- ====== 3. LLM ====== -->
-    <div class="sec-hd"><div class="n n3">3</div><h2>部署大模型</h2></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--green);">1</div> 浏览器打开 <strong style="color:#34d399;">platform.deepseek.com</strong>，注册登录</div></div>
-    <div class="step">
-      <div class="step-hd"><div class="sn" style="background:var(--green);">2</div> 左侧菜单 → API Keys → 创建 → 复制 Key</div>
-      <div class="step-bd"><div class="key-box">sk-xxxxxxxxxxxxxxxxxxxxxxxx（只显示一次，马上复制保存）</div></div>
-    </div>
-    <div class="step">
-      <div class="step-hd"><div class="sn" style="background:var(--green);">3</div> 打开 CC Switch → 点右上角 ＋ 新建配置</div>
-      <div class="step-bd">
-        <table class="cfg">
-          <tr><td>供应商名称</td><td>DeepSeek</td></tr>
-          <tr><td>API Key</td><td>sk-xxxxxxxx（刚才复制的）</td></tr>
-          <tr><td>请求地址</td><td>https://api.deepseek.com/anthropic</td></tr>
-          <tr><td>最大强度思考</td><td>开启 ✅</td></tr>
-        </table>
-        <div class="note note-info">其他字段不用管。请求地址末尾不要加斜杠。</div>
-      </div>
-    </div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--green);">4</div> 保存 → 回到主界面 → 点开关变<strong style="color:#34d399;">绿</strong></div></div>
-    <div class="note note-ok">DeepSeek 新用户<strong>送免费额度</strong>，够用很久，用完了按量付费很便宜。</div>
-
-    <!-- ====== 4. Start ====== -->
-    <div class="sec-hd"><div class="n n4">4</div><h2>打开 Claude Code 开始用</h2></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--purple);">1</div> 打开 VS Code（确保 CC Switch 在系统托盘开着）</div></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--purple);">2</div> 左侧栏点 AI 图标，打开 Claude Code 面板</div></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--purple);">3</div> 输入 <code style="color:#c4b5fd;background:rgba(139,92,246,.12);padding:2px 8px;border-radius:4px;">/model</code>，看到 <strong style="color:#34d399;">deepseek-v4-pro</strong></div></div>
-    <div class="step"><div class="step-hd"><div class="sn" style="background:var(--purple);">4</div> 输入 "你好" → AI 回复你了 → <strong style="color:#fbbf24;">大功告成！</strong></div></div>
-    <div class="note note-ok" style="font-size:.95em;padding:16px;"><strong>🎉 安装成功！现在可以让 AI 帮你写代码了。</strong></div>
-
-    <!-- ====== Trouble ====== -->
-    <div class="sec-hd" style="margin-top:44px;"><div class="n" style="background:linear-gradient(135deg,#dc2626,#ef4444);box-shadow:0 4px 14px rgba(239,68,68,.3);">!</div><h2>连不上？查这三样</h2></div>
-    <div class="card">
-      <div class="trouble">
-        <div class="tr-item"><div class="tr-num">1</div><div><h4>CC Switch 开着吗？</h4><p>右下角系统托盘找图标，确认开关绿着</p></div></div>
-        <div class="tr-item"><div class="tr-num">2</div><div><h4>API Key 填对了没？</h4><p>别多空格，去 DeepSeek 后台重新复制试试</p></div></div>
-        <div class="tr-item"><div class="tr-num">3</div><div><h4>VS Code 设置勾了吗？</h4><p>搜索 claudeCode.disableLoginPrompt，确保已勾选</p></div></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ===== Right Side ===== -->
-  <div class="side side-r">
-    <div class="side-inner">
-      <div class="s-card c3">🎯</div><div class="s-tag t2">免费</div><div class="s-line"></div>
-      <div class="s-card c4">🚀</div><div class="s-tag t4">3分钟</div><div class="s-line"></div>
-      <div class="s-card c1">✅</div><div class="s-tag t1">搞定</div><div class="s-line"></div>
-      <div class="s-card c2">🔒</div><div class="s-tag t3">安全</div>
-    </div>
-  </div>
-
-  <!-- ===== Footer ===== -->
   <div class="footer">
     <p>不会装？私信我，远程帮你搞定</p>
     <p style="margin-top:6px;">API Key 不要分享给任何人</p>
