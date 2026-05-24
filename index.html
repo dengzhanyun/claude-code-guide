@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code 摰?銝?⊿?</title>
+<style>
+  :root {
+    --bg: #0b1120; --card: #111827; --card2: #1a2332;
+    --blue: #3b82f6; --blue2: #1d4ed8; --gold: #f59e0b; --gold2: #d97706;
+    --green: #10b981; --red: #ef4444; --white: #f1f5f9; --gray: #94a3b8; --gray2: #64748b;
+    --border: #1e293b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--white); min-height: 100vh; background-image: radial-gradient(ellipse at 10% 20%, rgba(59,130,246,.06) 0%, transparent 50%), radial-gradient(ellipse at 90% 60%, rgba(245,158,11,.05) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(139,92,246,.04) 0%, transparent 50%); }
+  .side-deco { position: fixed; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 0; user-select: none; display: flex; flex-direction: column; gap: 20px; }
+  .side-deco.l { left: max(16px, calc((100vw - 900px) / 2 - 90px)); }
+  .side-deco.r { right: max(16px, calc((100vw - 900px) / 2 - 90px)); }
+  .side-card { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.6em; backdrop-filter: blur(4px); }
+  .side-card.c1 { background: rgba(59,130,246,.12); border: 1px solid rgba(59,130,246,.25); }
+  .side-card.c2 { background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.25); }
+  .side-card.c3 { background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.25); }
+  .side-card.c4 { background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.25); }
+  .side-card.c5 { background: rgba(239,68,68,.10); border: 1px solid rgba(239,68,68,.22); }
+  .side-card.c6 { background: rgba(6,182,212,.12); border: 1px solid rgba(6,182,212,.25); }
+  .side-badge { padding: 8px 12px; border-radius: 20px; font-size: .75em; color: #fff; text-align: center; font-weight: 600; white-space: nowrap; }
+  .side-badge.b1 { background: rgba(59,130,246,.2); border: 1px solid rgba(59,130,246,.35); }
+  .side-badge.b2 { background: rgba(16,185,129,.2); border: 1px solid rgba(16,185,129,.35); }
+  .side-badge.b3 { background: rgba(245,158,11,.2); border: 1px solid rgba(245,158,11,.35); }
+  .side-line { width: 1px; height: 24px; background: rgba(148,163,184,.2); margin: 0 auto; }
+  @media (max-width: 1080px) { .side-deco { display: none; } }
+
+  /* Top bar */
+  .topbar { background: #020617; border-bottom: 1px solid #1e293b; padding: 14px 24px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: .88em; color: var(--gray); }
+  .topbar .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .topbar span { color: var(--white); }
+
+  /* Hero */
+  .hero { text-align: center; padding: 60px 24px 48px; max-width: 860px; margin: 0 auto; }
+  .hero .badge { display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: .82em; background: rgba(59,130,246,.15); color: var(--blue); border: 1px solid rgba(59,130,246,.3); margin-bottom: 20px; }
+  .hero h1 { font-size: 2.6em; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .hero h1 .hi { color: var(--gold); }
+  .hero .sub { font-size: 1.1em; color: var(--gray); }
+
+  /* Main container */
+  .main { max-width: 860px; margin: 0 auto; padding: 0 32px 60px; }
+
+  /* Section title */
+  .sec-title { display: flex; align-items: center; gap: 10px; margin: 36px 0 16px; }
+  .sec-title .num { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9em; color: #fff; flex-shrink: 0; }
+  .sec-title .num.c1 { background: var(--blue); }
+  .sec-title .num.c2 { background: var(--gold); }
+  .sec-title .num.c3 { background: var(--green); }
+  .sec-title .num.c4 { background: #8b5cf6; }
+  .sec-title h2 { font-size: 1.3em; font-weight: 700; }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin: 12px 0; }
+  .card h3 { font-size: 1em; color: var(--white); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+
+  /* Download buttons */
+  .dl-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0; }
+  .dl-btn { flex: 1; min-width: 180px; display: flex; align-items: center; gap: 10px; padding: 16px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: .95em; transition: all .2s; border: 1px solid #1e293b; background: var(--card2); color: var(--white); }
+  .dl-btn:hover { border-color: var(--blue); background: #1a2740; transform: translateY(-1px); }
+  .dl-btn .icon { font-size: 1.6em; }
+  .dl-btn .info { flex: 1; }
+  .dl-btn .info small { display: block; color: var(--gray2); font-weight: 400; font-size: .8em; margin-top: 2px; }
+  .dl-btn .arrow { color: var(--gray2); font-size: 1.1em; }
+
+  /* Steps */
+  .step-block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin: 12px 0; }
+  .step-head { padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); background: var(--card2); }
+  .step-head .sn { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85em; color: #fff; }
+  .step-body { padding: 20px; font-size: .93em; line-height: 1.8; }
+  .step-body p { margin-bottom: 8px; color: var(--gray); }
+  .step-body strong { color: var(--white); }
+
+  /* Code boxes */
+  .code-box { background: #0b1120; border: 1px solid #1e293b; border-radius: 8px; padding: 14px 16px; font-family: "SF Mono","Fira Code","Cascadia Code",monospace; font-size: .88em; color: #e2e8f0; margin: 8px 0; overflow-x: auto; }
+  .code-box .c { color: #64748b; }
+  .code-box .g { color: #10b981; }
+
+  /* Config table */
+  .cfg { width: 100%; border-collapse: collapse; margin: 8px 0; }
+  .cfg td { padding: 10px 12px; border-bottom: 1px solid #1e293b; font-size: .9em; }
+  .cfg td:first-child { color: var(--gray); width: 120px; font-weight: 500; }
+  .cfg td:last-child { color: var(--white); font-family: "SF Mono","Fira Code",monospace; font-size: .88em; }
+  .cfg tr:last-child td { border: none; }
+
+  /* Key display */
+  .key-display { background: #0b1120; border: 1px solid #334155; border-radius: 8px; padding: 10px 16px; font-family: "SF Mono",monospace; color: var(--green); font-size: .88em; margin: 8px 0; word-break: break-all; }
+
+  /* Alerts */
+  .alert { padding: 12px 16px; border-radius: 8px; margin: 10px 0; font-size: .9em; display: flex; align-items: flex-start; gap: 8px; }
+  .alert-warn { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.3); color: var(--gold); }
+  .alert-info { background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.3); color: var(--blue); }
+  .alert-green { background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.3); color: var(--green); }
+  .alert strong { color: inherit; }
+
+  .check-list { list-style: none; }
+  .check-list li { padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+  .check-list li::before { content: "??; color: var(--gray2); font-size: 1.1em; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 40px 24px; color: var(--gray2); font-size: .85em; border-top: 1px solid var(--border); margin-top: 20px; }
+  .footer a { color: var(--blue); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.8em; }
+    .dl-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="side-deco l">
+  <div class="side-card c1">?</div>
+  <div class="side-badge b1">VS Code</div>
+  <div class="side-line"></div>
+  <div class="side-card c2">??</div>
+  <div class="side-badge b2">CC Switch</div>
+  <div class="side-line"></div>
+  <div class="side-card c3">??</div>
+  <div class="side-badge b3">DeepSeek</div>
+  <div class="side-line"></div>
+  <div class="side-card c4">??/div>
+  <div class="side-badge b1">AI 蝻?</div>
+</div>
+<div class="side-deco r">
+  <div class="side-card c3">?</div>
+  <div class="side-badge b2">?晶</div>
+  <div class="side-line"></div>
+  <div class="side-card c4">??</div>
+  <div class="side-badge b3">3??</div>
+  <div class="side-line"></div>
+  <div class="side-card c1">??/div>
+  <div class="side-badge b1">??</div>
+  <div class="side-line"></div>
+  <div class="side-card c5">??</div>
+  <div class="side-badge b2">摰</div>
+</div>
+
+<div class="topbar">
+  <div class="dot"></div>
+  蝟餌??嗆迤撣?<span>繚 20???? 繚 ?函??賢?蝵?/span>
+</div>
+
+<div class="hero">
+  <div class="badge">??蝧餃? 繚 ??靽∠??繚 ?? Anthropic 韐血</div>
+  <h1>Claude Code <span class="hi">+ DeepSeek V4 Pro</span></h1>
+  <p class="sub">銝?⊿?摰? 繚 鋆末撠梯??AI ?誨??/p>
+  <p style="color:var(--gray2);font-size:.9em;margin-top:8px;">?? 繚 撠</p>
+</div>
+
+<div class="main">
+
+<!-- ====== 蝚砌?甇?====== -->
+<div class="sec-title">
+  <div class="num c1">1</div>
+  <h2>摰? VS Code</h2>
+</div>
+
+<div class="card">
+  <div class="dl-row">
+    <a href="https://code.visualstudio.com" target="_blank" class="dl-btn">
+      <span class="icon">?</span>
+      <span class="info">VS Code 摰?銝蝸<small>code.visualstudio.com 繚 ?晶</small></span>
+      <span class="arrow">??/span>
+    </a>
+  </div>
+</div>
+
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--blue);">1</div> ? VSCode-Setup.exe嚗?頝臭?銝甇?/div>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--blue);">2</div> ?? VS Code嚗椰靘抒?拙??暹?嚗???Ctrl+Shift+X嚗?/div>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--blue);">3</div> ?揣 <strong style="color:#3b82f6;">Claude Code</strong>嚗??Anthropic 摰???孵?鋆?/div>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--blue);">4</div> ??Ctrl+, ??霈曄蔭 ???揣 <code style="color:#10b981;">claudeCode.disableLoginPrompt</code> ???暸?/div>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--blue);">5</div> <strong style="color:#ef4444;">?單? VS Code</strong>嚗??末 CC Switch ??撘嚗?/div>
+</div>
+
+<!-- ====== 蝚砌?甇?====== -->
+<div class="sec-title">
+  <div class="num c2">2</div>
+  <h2>摰? CC Switch</h2>
+</div>
+
+<div class="card">
+  <div class="dl-row">
+    <a href="https://github.com/farion1231/cc-switch/releases" target="_blank" class="dl-btn">
+      <span class="icon">??</span>
+      <span class="info">CC Switch 銝蝸<small>GitHub 繚 ?晶撘皞?/small></span>
+      <span class="arrow">??/span>
+    </a>
+  </div>
+</div>
+
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--gold);">1</div> ? CC-Switch-Setup.msi嚗?頝臭?銝甇?/div>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--gold);">2</div> 摰?摰?撘 CC Switch嚗?隡?喃?閫頂蝏???/div>
+</div>
+<div class="alert alert-warn"><strong>瘜冽?嚗?/strong>CC Switch 摰???憿颱??游??嚗鈭停餈?銝??銝??賜??啣???停撖嫣???/div>
+
+<!-- ====== 蝚砌?甇?====== -->
+<div class="sec-title">
+  <div class="num c3">3</div>
+  <h2>?函蔡憭扳芋??/h2>
+</div>
+
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--green);">1</div> 瘚??冽?撘 <strong style="color:#10b981;">platform.deepseek.com</strong>嚗釣?敶?/div>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--green);">2</div> 撌虫儒?? ??<strong>API Keys</strong> ???孵?撱???憭 Key</div>
+  <div class="step-body">
+    <div class="key-display">sk-xxxxxxxxxxxxxxxxxxxxxxxx嚗?曄內銝甈∴?蝡憭嚗?/div>
+  </div>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--green);">3</div> ?? CC Switch ???孵銝? <strong style="color:#10b981;">嚗?/strong> ?啣遣?蔭</div>
+  <div class="step-body">
+    <table class="cfg">
+      <tr><td>靘???蝘?/td><td>DeepSeek</td></tr>
+      </td<td>sk-xxxxxxxx嚗????嗥?嚗?/td></tr>
+      <tr><td>霂瑟??啣?</td><td>https://api.deepseek.com/anthropic</td></tr>
+      <tr><td>？批撩摨行？/td><td>?? ??/td></tr>
+    </table>
+    <div class="alert alert-info"><strong>?嗡?摮挾銝蝞∴?靽?暺恕??/strong>霂瑟??啣?銝?隞交???撠整?/div>
+  </div>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:var(--green);">4</div><strong style="color:#10b981;">?遛</strong></div>
+</div>
+<div class="alert alert-green"><strong>??DeepSeek ?啁?琿?韐寥?摨?/strong>嚗??典?銋摰???隞晶嚗?靘踹???/div>
+
+<!-- ====== 蝚砍?甇?====== -->
+<div class="sec-title">
+  <div class="num c4">4</div>
+  <h2>?? Claude Code 撘憪</h2>
+</div>
+
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:#8b5cf6;">1</div> ?? VS Code嚗＆靽?CC Switch 撘?嚗?/div>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="background:#8b5cf6;">2</div> 撌虫儒? AI ?暹?嚗?撘 Claude Code ?Ｘ</div>
+</div>
+<div class="step-block">
+  颲style="color:#c084fc;">/model嚗??? ="color:#10b981;>deepseek-v4-pro</strong></>
+</div>
+<div class="step-block">
+  <div class="step-head"><div class="sn" style="背景:#8b5cf6;">4</div> 颲 "雿末"嚗I ??雿???<strong 样式="color:#f59e0b;">??鈭?</strong></div>
+</div>
+
+<div class="alert alert-green" style="font-size:1em;padding:16px;">
+  <strong>?? 摰???嚗?其??臭誑霈?AI 撣桐??誨????/strong><br>
+  ???剁????Ｖ??laude Code 雿輻??.md??</div>
+
+<!-- ====== 餈?銝???====== -->
+<div class="sec-title" 样式="margin-top:40像素;">
+  <div class="num" style="background:#ef4444;">!</div>
+  <h2>餈?銝??亥?铜</h2>
+</div>
+
+<div class="card">
+  <div style="display:flex;flex-direction:column;gap:14像素;">
+    <div style="display:flex;align-items:center;gap:12像素;padding:10像素 0;border-bottom:1像素 solid var(--border);">
+      <span style=“字体大小：1.4em；”>??/跨度>
+      </strong><br><small style="颜色:var(--gray2);">?喃?閫頂蝏????瓷??CC开关 ?暹?嚗??單銝蝏輻?</small></跨度>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);">
+      <span style="font-size:1.4em;">??/跨度>
+      <span><强>API密钥 懒惰吗？/strong><br><small 样式=“color:var(--gray2);”>?懒？蝛箸嚗瞍？蝚艾 DeepSeek ?？憭銝銝？/small></跨度>
+    </div>
+    <div style="显示:弹性;align-items:center;间距:12像素;padding:10像素 0;">
+      <span style="字体大小:1.4em;">??/跨度>
+      <span><strong>VS 代码 霈曄蔭?历???</strong><br><small style="颜色:var(--gray2);">?揣 claudeCode.禁用登录提示嚗＆靽??</small></span>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>銝?鋆?蝘縑??餈?撣桐???</p>
+  <p style=“margin-top:4px;”>API密钥 銝??澈蝏遥雿犖</p>
+</div>
+
+</div>
+</正文>
+</html>
